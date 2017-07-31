@@ -9,7 +9,7 @@ import (
 // Task - a struct containing Task data
 type Task struct {
   ID   int `json:"id"`
-  Name String `json:"name"`
+  Name string `json:"name"`
 }
 
 // TaskCollection - a struct containing a collection of Tasks

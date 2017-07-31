@@ -29,7 +29,7 @@ func PutTask(db *sql.DB) echo.HandlerFunc {
     // Map incoming JSON body to the new Task
     c.Bind(&task)
     // Add a task using the PutTask model
-    id, err := models.PutTasks(db, task.name)
+    id, err := models.PutTask(db, task.Name)
     // Return JSON response if successful
     if err == nil {
       return c.JSON(http.StatusCreated, H{
