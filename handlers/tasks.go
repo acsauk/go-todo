@@ -68,3 +68,8 @@ func DeleteTask(db *sql.DB) echo.HandlerFunc {
     }
   }
 }
+
+func IsJSON(str string) bool {
+  var js json.RawMessage
+  return json.Unmarshall([]byte(str), $js) == nil
+}
