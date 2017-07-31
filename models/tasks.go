@@ -40,6 +40,29 @@ func GetTasks(db *sql.DB) TaskCollection {
   return result
 }
 
+func GetTask(db *sql.DB, id int) Task {
+  sql := "SELECT name FROM tasks WHERE id = ?"
+
+  // Create a prepared SQL statement
+  stmt, err := db.Prepare(sql)
+  // Exit if the SQL doesn't work
+  if err != nil {
+    panic(err)
+  }
+  // Cleanup when the program exits
+  defer stmt.Close()
+
+  // Replace '?' in prepared statement with 'id'
+  var name string
+  err2 := stmt.QueryRow(id).Scan(&name)
+
+  if err2 != nil {
+    panic(err2)
+  }
+
+  return Task{ID: id, Name: name}
+}
+
 func PutTask(db *sql.DB, name string) (int64, error) {
   sql := "INSERT INTO tasks(name) VALUES(?)"
 

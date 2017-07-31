@@ -17,6 +17,7 @@ func main() {
 
   e.File("/", "public/index.html")
   e.GET("/tasks", handlers.GetTasks(db))
+  e.GET("/tasks/:id", handlers.GetTask(db))
   e.PUT("/tasks", handlers.PutTask(db))
   e.DELETE("/tasks/:id", handlers.DeleteTask(db))
 

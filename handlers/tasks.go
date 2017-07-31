@@ -21,6 +21,15 @@ func GetTasks(db *sql.DB) echo.HandlerFunc {
   }
 }
 
+// GetTask endpoint
+func GetTask(db *sql.DB) echo.HandlerFunc {
+  return func(c echo.Context) error {
+    id, _ := strconv.Atoi(c.Param("id"))
+    // Fetch a specific task using the GetTask model
+    return c.JSON(http.StatusOK, models.GetTask(db, id))
+  }
+}
+
 // PutTask endpoint
 func PutTask(db *sql.DB) echo.HandlerFunc {
   return func(c echo.Context) error {
