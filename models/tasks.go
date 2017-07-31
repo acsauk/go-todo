@@ -39,3 +39,25 @@ func GetTasks(db *sql.DB) TaskCollection {
   }
   return result
 }
+
+func PutTask(db *sql.DB, name string) (int64, error) {
+  sql := "INSERT INTO tasks(name) VALUES(?)"
+
+  // Create a prepared SQL statement
+  stmt, err := db.Prepare(sql)
+  // Exit if we get an error
+  if err != nil {
+    panic(err)
+  }
+  // Cleanup when program exits
+  defer stmt.Close()
+
+  // Replace '?' in prepared statement with 'name'
+  result, err2 := stmt.Exec(name)
+  // Exit if we get an error
+  if err2 != nil {
+    panic(err2)
+  }
+
+  return result.LastInsertId()
+}
