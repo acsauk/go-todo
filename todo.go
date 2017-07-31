@@ -2,6 +2,8 @@ package main
 
 import (
   "database/sql"
+  "go-todo/handlers"
+
   "github.com/labstack/echo"
   _ "github.com/mattn/go-sqlite3"
 )
@@ -13,9 +15,10 @@ func main() {
   // Create a new instance of Echo
   e := echo.New()
 
-  e.GET("/tasks", func(c echo.Context) error { return c.JSON(200, "GET tasks") })
-  e.PUT("/tasks", func(c echo.Context) error { return c.JSON(200, "PUT tasks") })
-  e.DELETE("/tasks/:id", func(c echo.Context) error { return c.JSON(200, "DELTE Task "+c.Param("id")) })
+  e.File("/", "public/index.html")
+  e.GET("/tasks", handlers.GetTasks(db))
+  e.PUT("/tasks", handlers.PutTask(db))
+  e.DELETE("/tasks/:id", handlers.DeleteTask(db))
 
   // Start as a web server
   e.Start(":8000")
