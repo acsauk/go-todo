@@ -2,7 +2,6 @@ package main
 
 import (
   "github.com/labstack/echo"
-  "github.com/labstack/echo/engine/standard"
 )
 
 func main() {
@@ -14,5 +13,5 @@ func main() {
   e.DELETE("/tasks/:id", func(c echo.Context) error { return c.JSON(200, "DELTE Task "+c.Param("id")) })
 
   // Start as a web server
-  e.Run(standard.New(":8000"))
+  e.Start(":8000")
 }
